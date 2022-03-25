@@ -1,10 +1,10 @@
 {
   "name": "yapi-json-to-interface",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "yapi json schema to ts interface",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,8 @@
     "url": "https://github.com/Ardor-Zhang/yapi-json-to-interface/issues"
   },
   "homepage": "https://github.com/Ardor-Zhang/yapi-json-to-interface#readme",
-  "type": "module"
+  "dependencies": {
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  }
 }
