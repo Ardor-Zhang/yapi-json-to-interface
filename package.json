@@ -1,0 +1,21 @@
+{
+  "name": "yapi-json-to-interface",
+  "version": "0.0.1",
+  "description": "yapi json schema to ts interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ardor-Zhang/yapi-json-to-interface.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ardor-Zhang/yapi-json-to-interface/issues"
+  },
+  "homepage": "https://github.com/Ardor-Zhang/yapi-json-to-interface#readme",
+  "type": "module"
+}
