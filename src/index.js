@@ -1,4 +1,4 @@
-import { mapPrimitiveType, formatDescription } from "./utils/formatRow.js";
+import { mapPrimitiveType, formatDescription, formatRow } from "./utils/formatRow.js";
 import { generatePropertiesInterface } from "./utils/generatePropertiesInterface.js";
 
 function generate(rootSchema, interfaceName) {
@@ -20,4 +20,16 @@ function generate(rootSchema, interfaceName) {
 
 export function transform(source, interfaceName="Result") {
   return generate(source, interfaceName);
+}
+
+export function transformQuery(queryArray, interfaceName="Result") {
+  let result = `interface ${interfaceName} {\n`;
+  for (let i = 0; i < queryArray.length; i++) {
+    const item = queryArray[i];
+    result += formatDescription(item);
+    
+    const flag = item.required === '0' ? '?' : '';
+    result += formatRow(`${item.name}${flag}: string;`, 1);
+  };
+  return result + '}';
 }
