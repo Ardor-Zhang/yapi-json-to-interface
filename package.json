@@ -1,24 +1,87 @@
 {
   "name": "yapi-json-to-interface",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "yapi json schema to ts interface",
-  "main": "dist/index.js",
+  "main": "./lib/index.js",
+  "module": "./esm/index.js",
+  "sideEffects": false,
+  "directories": {
+    "example": "example"
+  },
+  "files": [
+    "lib",
+    "esm",
+    "index.d.ts"
+  ],
+  "types": "./index.d.ts",
   "scripts": {
-    "build": "webpack"
+    "lint": "npm test",
+    "build": "npm run build:lib && npm run build:esm",
+    "build:lib": "rm -fr ./lib && BABEL_ENV=lib babel ./src --out-dir ./lib --ignore 'src/**/__tests__/**/*.js'",
+    "build:esm": "rm -fr ./esm && babel ./src --out-dir ./esm --ignore 'src/**/__tests__/**/*.js'",
+    "prepush": "npm run lint",
+    "prepublishOnly": "npm run build",
+    "release": "np --no-cleanup --yolo --no-publish --any-branch",
+    "test": "jest --coverage",
+    "codecov": "codecov"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ardor-Zhang/yapi-json-to-interface.git"
+    "url": "git+https://github.com/ardor-zhang/yapi-json-to-interface.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "yapi",
+    "ts",
+    "interface"
+  ],
+  "author": "ardor-zhang",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Ardor-Zhang/yapi-json-to-interface/issues"
+    "url": "https://github.com/ardor-zhang/yapi-json-to-interface/issues"
   },
-  "homepage": "https://github.com/Ardor-Zhang/yapi-json-to-interface#readme",
+  "homepage": "https://github.com/ardor-zhang/yapi-json-to-interface#readme",
+  "browserslist": [
+    "> 1%",
+    "last 6 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "codecov": "^3.7.0",
+    "husky": "^1.3.1",
+    "iconv-lite": "^0.6.2",
+    "jest": "^24.9.0",
+    "np": "^5.0.3",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "jest": {
+    "globals": {
+      "process.env.NODE_ENV": "test"
+    },
+    "testURL": "http://test.com/path/",
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/fixtures/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/__tests__/",
+      "/dist/"
+    ],
+    "setupFiles": [
+      "./test/setup.js"
+    ]
+  },
   "dependencies": {
-    "webpack": "^5.70.0",
-    "webpack-cli": "^4.9.2"
+    "@babel/runtime": "^7.7.2"
   }
 }
