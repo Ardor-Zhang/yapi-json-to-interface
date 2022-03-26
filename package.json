@@ -76,9 +76,6 @@
       "/node_modules/",
       "/__tests__/",
       "/dist/"
-    ],
-    "setupFiles": [
-      "./test/setup.js"
     ]
   },
   "dependencies": {
