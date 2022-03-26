@@ -1,6 +1,6 @@
 {
   "name": "yapi-json-to-interface",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "yapi json schema to ts interface",
   "main": "./lib/index.js",
   "module": "./esm/index.js",
