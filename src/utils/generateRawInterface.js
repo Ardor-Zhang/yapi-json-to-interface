@@ -12,7 +12,6 @@ function getType(variable) {
 
 export function generateRawInterface(raw = {}, depth = 1) {
   const type = getType(raw);
-  console.log(type);
   const primitiveType = mapPrimitiveTypeString(type);
   if (primitiveType) return primitiveType;
 
