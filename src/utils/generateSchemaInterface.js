@@ -1,6 +1,7 @@
-import { mapPrimitiveType, formatRow, formatDescription } from "./formatRow.js";
+import { mapPrimitiveType } from "./constants";
+import { formatRow, formatDescription } from "./format";
 
-export function generatePropertiesInterface(schema = {}, depth = 1) {
+export function generateSchemaInterface(schema = {}, depth = 1) {
   const primitiveType = mapPrimitiveType(schema.type);
   if (primitiveType) return primitiveType;
 
@@ -21,7 +22,7 @@ export function generatePropertiesInterface(schema = {}, depth = 1) {
       
       const requiredProps = schema.required ?? [];
       const key = `${property}${requiredProps.includes(property) ? '?' : ''}`;
-      const type = generatePropertiesInterface(child, depth + 1);
+      const type = generateSchemaInterface(child, depth + 1);
       body += formatRow(`${key}: ${type};`, depth);
     }
     
@@ -32,7 +33,7 @@ export function generatePropertiesInterface(schema = {}, depth = 1) {
   }
 
   if (schema.type == "array") {
-    return generatePropertiesInterface(schema.items, depth) + "[]";
+    return generateSchemaInterface(schema.items, depth) + "[]";
   }
 
   return "any";

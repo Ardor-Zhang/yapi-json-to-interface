@@ -1,10 +1,10 @@
 type YapiType = 'object' | 'array' | 'integer' | 'number' | 'string' | 'boolean';
 
 interface YapiProperities {
-  [key: string] : YapiJson
+  [key: string] : YapiSchema
 }
 
-interface YapiJson {
+interface YapiSchema {
   type: YapiType,
   properties?: YapiProperities,
   required: string[],
@@ -14,12 +14,19 @@ interface JsonToInterface {
   [key: string]: string
 }
 
-interface ReqQuery {
+interface YapiForm {
   required?: "0" | "1",
   name: string,
   desc?: string,
 }
 
-export function transform(source: YapiJson, interfaceName?: string): JsonToInterface
+interface YapiRaw {
+  [key: string]: any
+}
 
-export function transformQuery(queryArray: ReqQuery, interfaceName?: string): JsonToInterface
+export function transformSchema(schema: YapiSchema, interfaceName?: string): JsonToInterface
+
+export function transformForm(queryArray: YapiForm, interfaceName?: string): JsonToInterface
+
+export function transformRaw(queryArray: YapiRaw, interfaceName?: string): JsonToInterface
+

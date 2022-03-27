@@ -1,15 +1,18 @@
-import { mapPrimitiveType, formatDescription, formatRow } from "./utils/formatRow.js";
-import { generatePropertiesInterface } from "./utils/generatePropertiesInterface.js";
+import { formatDescription } from "./utils/format";
+import { mapPrimitiveType } from "./utils/constants";
+import { generateSchemaInterface } from "./utils/generateSchemaInterface.js";
+import { generateRawInterface } from "./utils/generateRawInterface.js";
+import { generateFormInterface } from "./utils/generateFormInterface.js";
 
 function generate(rootSchema, interfaceName) {
   let result = "";
   result += formatDescription(rootSchema);
 
   if (rootSchema.type == "object") {
-    result += `interface ${interfaceName} ${generatePropertiesInterface(rootSchema)}\n`;
+    result += `interface ${interfaceName} ${generateSchemaInterface(rootSchema)}\n`;
   } else if (rootSchema.type == "array") {
     result +=
-      `interface ${interfaceName} {\n${formatDescription(rootSchema.items, 1)}    [index: number]: ${generatePropertiesInterface(rootSchema.items, 2)};\n}\n`
+      `interface ${interfaceName} {\n${formatDescription(rootSchema.items, 1)}    [index: number]: ${generateSchemaInterface(rootSchema.items, 2)};\n}\n`
   } else {
     const type = mapPrimitiveType(rootSchema.type);
     result += `type ${interfaceName} = ${type};\n`
@@ -18,18 +21,14 @@ function generate(rootSchema, interfaceName) {
   return result;
 };
 
-export function transform(source, interfaceName="Result") {
-  return generate(source, interfaceName);
+export function transformSchema(schema, interfaceName="Result") {
+  return generate(schema, interfaceName);
 }
 
-export function transformQuery(queryArray, interfaceName="Result") {
-  let result = `interface ${interfaceName} {\n`;
-  for (let i = 0; i < queryArray.length; i++) {
-    const item = queryArray[i];
-    result += formatDescription(item, 1);
+export function transformForm(form, interfaceName="Result") {
+  return `interface ${interfaceName} ${generateFormInterface(form, 1)}` ;;
+}
 
-    const flag = item.required === '0' ? '?' : '';
-    result += formatRow(`${item.name}${flag}: string;`, 1);
-  };
-  return result + '}';
+export function transformRaw(raw, interfaceName="Result") {
+  return `interface ${interfaceName} ${generateRawInterface(raw, 1)}` ;
 }
