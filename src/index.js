@@ -26,8 +26,8 @@ export function transformQuery(queryArray, interfaceName="Result") {
   let result = `interface ${interfaceName} {\n`;
   for (let i = 0; i < queryArray.length; i++) {
     const item = queryArray[i];
-    result += formatDescription(item);
-    
+    result += formatDescription(item, 1);
+
     const flag = item.required === '0' ? '?' : '';
     result += formatRow(`${item.name}${flag}: string;`, 1);
   };
